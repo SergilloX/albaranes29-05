@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control de Albaranes</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link id="section-stylesheet" rel="stylesheet" href="albaranes.css" />
+    <link rel="stylesheet" href="gastos.css" />
+    <link rel="stylesheet" href="cobros.css" />
+    <link rel="stylesheet" href="stock.css" />
+    <link rel="stylesheet" href="sulfatos.css" />
+    <link rel="stylesheet" href="riegos.css" />
+  </head>
+  <body>
+    <header id="header-content">
+      <nav>
+        <ul>
+          <li>
+            <a
+              href="#albaranes"
+              class="nav-link active"
+              data-css="albaranes.css"
+              >Albaranes</a
+            >
+          </li>
+          <li>
+            <a href="#gastos" class="nav-link" data-css="gastos.css">Gastos</a>
+          </li>
+          <li>
+            <a href="#cobros" class="nav-link" data-css="cobros.css">Cobros</a>
+          </li>
+          <li>
+            <a href="#stock" class="nav-link" data-css="stock.css">Stock</a>
+          </li>
+          <li>
+            <a href="#sulfatos" class="nav-link" data-css="sulfatos.css"
+              >Sulfatos</a
+            >
+          </li>
+          <li><a href="#riegos" class="nav-link" data-css="riegos.css">Riegos</a></li>
+        </ul>
+      </nav>
+
+      <!-- Desplegable para seleccionar la campaña -->
+      <div class="campaign-container">
+        <label for="campaign-select">Seleccionar Campaña:</label>
+        <select id="campaign-select"></select>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Sección de Albaranes -->
+      <section id="albaranes" class="page">
+        <h1>Control de Albaranes</h1>
+        <form id="albaran-form">
+          <label for="albaran">Albarán:</label>
+          <input type="text" id="albaran" name="albaran" required />
+          <label for="fecha-albaran">Fecha:</label>
+          <input type="date" id="fecha-albaran" name="fecha" required />
+          <label for="kilos">Kilos:</label>
+          <input type="number" id="kilos" name="kilos" step="0.01" required />
+          <label for="importe">Importe:</label>
+          <input type="number" id="importe"  name="importe" step="0.01" required />
+          <label for="invernadero">Invernadero:</label>
+          <select id="invernadero" name="invernadero">
+            <option value=""></option>
+            <option value="Viejo">Viejo</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Casa">Casa</option>
+          </select>
+          <button type="submit">Añadir Albarán</button>
+
+          <div id="filtro-invernadero-container">
+            <label for="filtro-invernadero">Filtrar por invernadero:</label>
+            <select id="filtro-invernadero">
+              <option value="">Todos los invernaderos</option>
+              <option value="Viejo">Viejo</option>
+              <option value="Nuevo">Nuevo</option>
+              <option value="Casa">Casa</option>
+            </select>
+          </div>
+        </form>
+        <div id="totales">
+          <h2>Totales</h2>
+          <p>Total Kilos: <span id="total-kilos">0</span></p>
+          <p>Total Importe: <span id="total-importe">0</span></p>
+        </div>
+        <h2>Lista de Albaranes</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Albarán</th>
+                <th>Fecha</th>
+                <th>Kilos</th>
+                <th>Importe</th>
+                <th>Invernadero</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="albaranes-list">
+              <!-- Aquí se mostrarán los albaranes -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal y deshacer específicos para Albaranes -->
+        <div
+          id="delete-confirmation-modal-albaranes"
+          class="modal"
+          style="display: none"
+        >
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Estás seguro de que quieres eliminar este albarán?</p>
+            <button id="confirm-delete-albaranes">Eliminar</button>
+            <button id="cancel-delete-albaranes">Cancelar</button>
+          </div>
+        </div>
+        <div
+          id="undo-message-albaranes"
+          class="undo-message-albaranes"
+          style="display: none"
+        >
+          <p>
+            Albarán eliminado.
+            <a href="#" id="undo-delete-albaranes">Deshacer</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección de Gastos -->
+      <section id="gastos" class="page" style="display: none">
+        <h1>Gastos</h1>
+        <form id="gasto-form">
+          <label for="concepto">Proveedor:</label>
+          <input
+            type="text"
+            id="concepto-search"
+            placeholder="Buscar proveedor..."
+            data-url="/api/proveedores"
+          />
+          <ul id="concepto-list" class="dropdown">
+            <!-- Opciones de proveedores se cargarán dinámicamente -->
+          </ul>
+          <button id="add-new-provider" type="button">
+            Añadir nuevo proveedor
+          </button>
+
+          <label
+            for="nuevo-proveedor"
+            id="nuevo-proveedor-label"
+            style="display: none"
+            >Nuevo Proveedor:</label
+          >
+          <input
+            type="text"
+            id="nuevo-proveedor"
+            name="nuevo-proveedor"
+            style="display: none"
+          />
+
+          <label for="fecha-gasto">Fecha:</label>
+          <input type="date" id="fecha-gasto" name="fecha" required />
+          <label for="importe-gasto">Importe:</label>
+          <input
+            type="number"
+            id="importe-gasto"
+            name="importe"
+            step="0.01"
+            required
+          />
+          <button type="submit">Añadir Gasto</button>
+        </form>
+
+        <div id="filtro-proveedor-container">
+          <input
+            type="text"
+            id="filtro-proveedor-search"
+            placeholder="Buscar proveedor..."
+            data-url="/api/proveedores"
+          />
+          <ul id="filtro-proveedor-list" class="dropdown">
+            <!-- Opciones de proveedores se cargarán dinámicamente -->
+          </ul>
+          <button id="clear-filter" type="button">Borrar filtro</button>
+        </div>
+
+        <div id="total-gastos">
+          <h2>Total Gastos</h2>
+          <p>Total Importe: <span id="total-gasto-importe">0,00 €</span></p>
+        </div>
+        <h2>Lista de Gastos</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Fecha</th>
+                <th>Importe</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="gastos-list">
+              <!-- Aquí se mostrarán los gastos -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal y deshacer específicos para Gastos -->
+        <div
+          id="delete-confirmation-modal-gastos"
+          class="modal"
+          style="display: none"
+        >
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Estás seguro de que quieres eliminar este gasto?</p>
+            <button id="confirm-delete-gastos">Eliminar</button>
+            <button id="cancel-delete-gastos">Cancelar</button>
+          </div>
+        </div>
+        <div
+          id="undo-message-gastos"
+          class="undo-message-gastos"
+          style="display: none"
+        >
+          <p>
+            Gasto eliminado. <a href="#" id="undo-delete-gastos">Deshacer</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección de Cobros -->
+      <section id="cobros" class="page" style="display: none">
+        <h1>Cobros</h1>
+        <form id="cobro-form">
+          <label for="cobro-fecha">Fecha:</label>
+          <input type="date" id="cobro-fecha" name="fecha" required />
+          <label for="cobro-importe">Importe:</label>
+          <input
+            type="number"
+            id="cobro-importe"
+            name="importe"
+            step="0.01"
+            required
+          />
+          <button type="submit">Añadir Cobro</button>
+        </form>
+        <div id="pendiente">
+          <p>Pendiente de cobro: <span id="pendiente-cobro"></span></p>
+          <p>Total cobrado: <span id="total-cobrado">0,00 €</span></p>
+        </div>
+        <h2>Lista de Cobros</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Importe</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cobros-list">
+              <!-- Aquí se mostrarán los cobros -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal y deshacer específicos para Cobros -->
+        <div
+          id="delete-confirmation-modal-cobros"
+          class="modal"
+          style="display: none"
+        >
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Estás seguro de que quieres eliminar este cobro?</p>
+            <button id="confirm-delete-cobros">Eliminar</button>
+            <button id="cancel-delete-cobros">Cancelar</button>
+          </div>
+        </div>
+        <div
+          id="undo-message-cobros"
+          class="undo-message-cobros"
+          style="display: none"
+        >
+          <p>
+            Cobro eliminado. <a href="#" id="undo-delete-cobros">Deshacer</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección de Stock -->
+<section id="stock" class="page" style="display: none">
+    <h1>Control de Stock</h1>
+    <form id="stock-form">
+        <label for="producto">Producto:</label>
+        <input type="text" id="producto" name="producto" required />
+
+        <label for="funcion">Función:</label>
+        <input type="text" id="funcion" name="funcion" required />
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad" step="0.01" required />
+
+        <label for="unidad">Unidad:</label>
+        <select id="unidad" name="unidad">
+            <option value="KG">Kilogramos</option>
+            <option value="L">Litros</option>
+        </select>
+
+        <label for="dosis">Dosis (mL/L o g/L):</label>
+        <input type="text" id="dosis" name="dosis" required />
+
+        <label for="incompatibilidad">Incompatibilidad:</label>
+        <input type="text" id="incompatibilidad" name="incompatibilidad" />
+
+        <button type="submit">Añadir/Actualizar Producto</button>
+    </form>
+
+    <div id="search-container">
+        <input type="text" id="search-product" placeholder="Buscar producto..." />
+    </div>
+
+    <h2>Lista de Productos</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Función</th>
+                    <th>Cantidad</th> <!-- Mostrar la cantidad con la unidad -->
+                    <th>Dosis (mL/L o g/L)</th> <!-- Añadir la columna de dosis -->
+                    <th>Incompatibilidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="stock-list">
+                <!-- Aquí se mostrarán los productos en stock -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal y deshacer específicos para Stock -->
+    <div id="delete-confirmation-modal-stock" class="modal" style="display: none">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Estás seguro de que quieres eliminar este producto?</p>
+            <button id="confirm-delete-stock">Eliminar</button>
+            <button id="cancel-delete-stock">Cancelar</button>
+        </div>
+    </div>
+    <div id="undo-message-stock" class="undo-message-stock" style="display: none">
+        <p>
+            Producto eliminado. <a href="#" id="undo-delete-stock">Deshacer</a>
+        </p>
+    </div>
+</section>
+
+      <!-- Sección de Sulfatos -->
+      <section id="sulfatos" class="page" style="display: none">
+        <h1>Registro de Sulfatos</h1>
+        <form id="sulfato-form">
+          <label for="fecha-sulfato">Fecha:</label>
+          <input type="date" id="fecha-sulfato" name="fecha" required />
+
+          <label for="producto-sulfato">Producto:</label>
+          <div style="position: relative">
+            <input
+              type="text"
+              id="producto-sulfato"
+              name="producto"
+              autocomplete="off"
+            />
+            <ul id="producto-list"></ul>
+            <!-- Lista para mostrar los productos filtrados -->
+          </div>
+
+          <label for="cantidad-sulfato">Cantidad:</label>
+          <input
+            type="number"
+            id="cantidad-sulfato"
+            name="cantidad"
+            step="0.01"
+          />
+
+          <label for="ph-sulfato">pH:</label>
+          <input type="number" id="ph-sulfato" name="ph" step="0.01" />
+
+          <label for="unidad-sulfato">Unidad:</label>
+          <select id="unidad-sulfato" name="unidad">
+            <option value="KG">Kilogramos</option>
+            <option value="L">Litros</option>
+          </select>
+
+          <label for="invernadero-sulfato">Invernadero:</label>
+          <select id="invernadero-sulfato" name="invernadero">
+            <option value="Cortijo">Cortijo</option>
+            <option value="Viejo">Viejo</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Viejo y Nuevo">Viejo y Nuevo</option>
+          </select>
+
+          <button type="button" id="add-product-btn">Añadir Producto</button>
+        </form>
+
+        <h2>Productos Añadidos</h2>
+        <div class="table-container">
+          <table id="product-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se mostrarán los productos añadidos -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mover el botón aquí -->
+        <button type="button" id="register-sulfato-btn">
+          Registrar Sulfato
+        </button>
+
+        <h2>Lista de Sulfatos</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Invernadero</th>
+                <th>pH</th>
+                <!-- Nueva columna para pH -->
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="sulfato-list">
+              <!-- Aquí se mostrarán los sulfatos -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal de confirmación de eliminación -->
+<div id="delete-confirmation-modal-product" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>¿Estás seguro de que quieres eliminar este producto?</p>
+        <button id="confirm-delete-product" class="btn btn-danger">Eliminar</button>
+        <button id="cancel-delete-product" class="btn btn-secondary">Cancelar</button>
+    </div>
+</div>
+      </section>
+      <!-- Sección de riegos -->
+      <section id="riegos" class="page" style="display: none">
+        <h1>Registro de riegos</h1>
+        <form id="riego-form">
+          <label for="fecha-riego">Fecha:</label>
+          <input type="date" id="fecha-riego" name="fecha" required />
+
+          <label for="producto-riego">Producto:</label>
+          <div style="position: relative">
+            <input
+              type="text"
+              id="producto-riego"
+              name="producto"
+              autocomplete="off"
+            />
+            <ul id="producto-riego-list"></ul>
+            <!-- Lista para mostrar los productos filtrados -->
+          </div>
+
+          <label for="cantidad-riego">Cantidad:</label>
+          <input
+            type="number"
+            id="cantidad-riego"
+            name="cantidad"
+            step="0.01"
+          />
+
+          <label for="ph-riego">pH:</label>
+          <input type="number" id="ph-riego" name="ph" step="0.01" />
+
+          <label for="unidad-riego">Unidad:</label>
+          <select id="unidad-riego" name="unidad">
+            <option value="L">Litros</option>
+            <option value="KG">Kilogramos</option>
+          </select>
+
+          <label for="invernadero-riego">Sectores:</label>
+          <div style="position: relative">
+          <input
+              type="text"
+              id="invernadero-riego"
+              name="invernadero"
+              autocomplete="off"
+            />
+          </div>
+
+          <button type="button" id="add-product-riego-btn">Añadir Producto</button>
+        </form>
+
+        <h2>Productos Añadidos</h2>
+        <div class="table-container">
+          <table id="product-riego-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se mostrarán los productos añadidos -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mover el botón aquí -->
+        <button type="button" id="register-riego-btn">
+          Registrar riego
+        </button>
+
+        <h2>Lista de riegos</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Sectores</th>
+                <th>pH</th>
+                <!-- Nueva columna para pH -->
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="riego-list">
+              <!-- Aquí se mostrarán los riegos -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal y deshacer específicos para riegos -->
+        <div
+          id="delete-confirmation-modal-riegos"
+          class="modal"
+          style="display: none"
+        >
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>¿Estás seguro de que quieres eliminar este riego?</p>
+            <button id="confirm-delete-riegos">Eliminar</button>
+            <button id="cancel-delete-riegos">Cancelar</button>
+          </div>
+        </div>
+        <div
+          id="undo-message-riegos"
+          class="undo-message-riegos"
+          style="display: none"
+        >
+          <p>
+            riego eliminado.
+            <a href="#" id="undo-delete-riegos">Deshacer</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <button id="toggle-dark-mode">Modo Oscuro/Claro</button>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/check-session")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.authenticated) {
+              document.getElementById("header-content").style.display = "block";
+              document.getElementById("main-content").style.display = "block";
+              document.getElementById("toggle-dark-mode").style.display =
+                "block";
+            } else {
+              window.location.href = "/login.html";
+            }
+          })
+          .catch((err) => console.error("Error:", err));
+      });
+
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function () {
+          document.querySelector(".nav-link.active").classList.remove("active");
+          this.classList.add("active");
+          const stylesheet = document.getElementById("section-stylesheet");
+          stylesheet.setAttribute("href", this.getAttribute("data-css"));
+
+          document.querySelectorAll(".page").forEach((section) => {
+            section.style.display =
+              section.id === this.getAttribute("href").substring(1)
+                ? "block"
+                : "none";
+          });
+        });
+      });
+    </script>
+    <script>
+      // Script para cambiar el archivo CSS cuando cambias de pestaña
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function () {
+          document.querySelector(".nav-link.active").classList.remove("active");
+          this.classList.add("active");
+          const stylesheet = document.getElementById("section-stylesheet");
+          stylesheet.setAttribute("href", this.getAttribute("data-css"));
+
+          document.querySelectorAll(".page").forEach((section) => {
+            section.style.display = "none";
+          });
+          document.querySelector(this.getAttribute("href")).style.display =
+            "block";
+        });
+      });
+    </script>
+    <script>
+      document
+        .getElementById("toggle-dark-mode")
+        .addEventListener("click", function () {
+          document.body.classList.toggle("dark-mode");
+          console.log(
+            "Modo oscuro activado:",
+            document.body.classList.contains("dark-mode")
+          );
+        });
+    </script>
+    <script src="app.js" defer></script>
+    <script src="gastos.js" defer></script>
+    <script src="common.js" defer></script>
+    <script src="stock.js" defer></script>
+    <script src="sulfatos.js" defer></script>
+    <script src="riegos.js" defer></script>  
+  </body>
+</html>

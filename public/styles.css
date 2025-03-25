@@ -1,0 +1,159 @@
+/* Estilo General - Aplicado a todo el sitio web */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #000; /* Texto oscuro en modo claro */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background: linear-gradient(45deg, #333, #555);
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la navegación */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #ff9800;
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+nav a.active {
+    background-color: transparent;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+/* Estilo para el contenedor del desplegable */
+.campaign-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    color: #fff; /* Color blanco para el texto */
+}
+
+/* Texto encima del desplegable */
+.campaign-container label {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Estilo del desplegable */
+.campaign-container select {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: #ff9800;
+    border: 2px solid #ff9800;
+    border-radius: 25px;
+    outline: none;
+    text-align-last: center;
+    appearance: none;
+    transition: all 0.3s ease;
+}
+
+/* Estilo de las opciones dentro del desplegable */
+.campaign-container select option {
+    background-color: #333;
+    color: #ff9800;
+    text-align: center;
+}
+
+/* Modo Oscuro General */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode header {
+    background: linear-gradient(45deg, #333, #444);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode nav a {
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode nav a.active {
+    background-color: #ff9800;
+    color: #ffffff;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav a {
+        padding: 12px 15px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    header {
+        padding: 10px;
+    }
+
+    body {
+        padding: 10px;
+    }
+}
+
+

@@ -1,0 +1,415 @@
+/* Estilo General - Modo Claro */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #000; /* Texto oscuro en modo claro */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+    font-weight: 700;
+}
+
+form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+select {
+    appearance: none;
+    background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 width%3D%2210%22 height%3D%225%22><path fill%3D%22%23333%22 d%3D%22M0%200l5%205%205-5z%22/></svg>') no-repeat right 10px center;
+    background-color: white;
+    background-size: 10px;
+    padding-right: 30px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #ff9800;
+    outline: none;
+}
+
+
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+/* Centrado y Ajuste del Buscador en Stock */
+#search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#search-product {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Estilos para la tabla */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center; /* Centrar texto en todas las columnas */
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #555;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle; /* Asegura que el contenido esté centrado verticalmente */
+}
+/* Estilos para centrar el texto en la columna de Incompatibilidad */
+th:nth-child(4), td:nth-child(4) {
+    text-align: center; /* Alinear al centro */
+}
+
+tr:hover td {
+    background-color: #f9f9f9;
+}
+/* Botones uno encima del otro en la misma celda */
+.actions button {
+    display: block; /* Hace que los botones se comporten como elementos de bloque */
+    margin-bottom: 10px; /* Espacio entre botones */
+    width: 100px; /* Ancho fijo */
+    padding: 10px; /* Ajuste del padding */
+    font-size: 14px; /* Ajuste del tamaño de la fuente */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.actions button:last-child {
+    margin-bottom: 0; /* Quitar margen del último botón */
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    .actions button {
+        width: 100%; /* Botones ocupan todo el ancho disponible en móviles */
+    }
+}
+
+/* Modo oscuro - Botones */
+.dark-mode .actions button {
+    background-color: #6fba6f;
+}
+
+.dark-mode .actions button:hover {
+    background-color: #5aa85a;
+}
+
+
+/* Modo Oscuro */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode main {
+    background-color: #2a2a2a;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Encabezados y etiquetas en modo oscuro */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode label {
+    color: #ffffff; /* Asegurarse de que los encabezados y etiquetas sean blancas en modo oscuro */
+}
+
+body.dark-mode form {
+    background: #333333;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode input, body.dark-mode select {
+    background-color: #444444;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+    border-color: #666666;
+}
+
+body.dark-mode input:focus, body.dark-mode select:focus {
+    border-color: #ff9800;
+    outline: none;
+    background-color: #555555;
+}
+
+body.dark-mode button {
+    background: #6fba6f;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode button:hover {
+    background: #5aa85a;
+}
+
+/* Modo Oscuro para la tabla */
+body.dark-mode table {
+    background-color: #2e2e2e;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode th, body.dark-mode td {
+    border-color: #555555;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode th {
+    background-color: #444444;
+    color: #ffffff; /* Texto blanco en modo oscuro */
+}
+
+body.dark-mode td {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode tr:hover td {
+    background-color: #4a4a4a; /* Mejora el contraste en la fila seleccionada */
+}
+.edit-stock-btn {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+.edit-stock-btn:hover {
+    background-color: #45a049; /* Verde más oscuro al hacer hover */
+}
+/* Estilos para los botones de eliminar en Albaranes */
+.delete-stock-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #f44336; /* Color rojo */
+    color: #ffffff; /* Texto blanco */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-stock-btn:hover {
+    background-color: #d32f2f; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Modo oscuro para los botones de eliminar en Albaranes */
+body.dark-mode .delete-stock-btn {
+    background-color: #e57373; /* Rojo más claro para destacar en modo oscuro */
+    color: #ffffff; /* Texto blanco */
+}
+
+body.dark-mode .delete-stock-btn:hover {
+    background-color: #c62828; /* Rojo más oscuro al pasar el ratón en modo oscuro */
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Fondo más oscuro */
+}
+
+.modal-content {
+    background-color: #f9f9f9;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+    width: 320px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Botón de eliminar en rojo */
+#confirm-delete-stock {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#confirm-delete-stock:hover {
+    background-color: #c0392b; /* Rojo más oscuro */
+}
+
+/* Botón de cancelar */
+#cancel-delete-stock {
+    background-color: #7f8c8d; /* Gris */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#cancel-delete-stock:hover {
+    background-color: #95a5a6; /* Gris más claro */
+}
+
+/* Estilos para el mensaje de deshacer */
+.undo-message-stock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2ecc71; /* Verde atractivo */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    font-size: 14px;
+    z-index: 1001;
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+.undo-message-stock a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.undo-message-stock a:hover {
+    color: #ecf0f1;
+}
+
+/* Animación de entrada */
+
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Modo oscuro */
+.dark-mode .modal-content {
+    background-color: #333; /* Fondo oscuro */
+    color: #f9f9f9; /* Texto claro */
+}
+
+.dark-mode .close {
+    color: #f9f9f9; /* Color claro para el botón de cerrar */
+}
+
+.dark-mode #confirm-delete-stock {
+    background-color: #e74c3c; /* Rojo */
+}
+
+.dark-mode #confirm-delete-stock:hover {
+    background-color: #c0392b; /* Rojo más oscuro */
+}
+
+.dark-mode #cancel-delete-stock {
+    background-color: #7f8c8d; /* Gris oscuro */
+}
+
+.dark-mode #cancel-delete-stock:hover {
+    background-color: #95a5a6; /* Gris más claro */
+}
+
+.dark-mode .undo-message-stock {
+    background-color: #2ecc71; /* Verde atractivo */
+    color: white;
+}
+
+
+
+
